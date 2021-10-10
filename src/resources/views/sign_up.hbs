@@ -1,0 +1,98 @@
+<div class="header-container">
+        <div class="wrapper">
+            <header>
+                <div class="hero-container">
+                    <h1>Online Marking</h1>
+                    <p>
+                        Administer and grade online and in-class assessments
+                    </p>
+                    <a href="#">Join Now</a>
+                </div>
+                <div class="hero-image">
+                    <img class="photo-bg"src="assets/img/rose.svg" alt="" >
+                </div>
+            </header>
+        </div>
+    </div>
+<!--Modal layout-->
+     <div class="modal">
+        <div class="modal__overlay"></div>
+       
+        <div class="modal__body">
+            <div class="modal__inner">
+               <!--Authen form-->
+               <div class="auth-form">
+                   <div class="auth-form__container">
+                        <div class="auth-form__header">
+                            <h3 class="auth-form__heading">Sign Up</h3>
+                            <a href="sign_in"><span class="auth-form__swith-btn">Sign In</span></a>
+                        </div>
+                            
+                        <form method="POST" action="/sign_up">
+                            <div class="auth-form__form">
+                                {{#if errors}}
+                                    {{#each errors}}
+                                        <div class="alert alert-danger" >
+                                            {{this.msg}}
+                                        </div>
+                                    {{/each}}
+                                {{/if}}
+                            <div class="auth-form__group">
+                                <input type="text" name="email" required="" class="auth-form__input" placeholder="Email">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="text" name="phone" placeholder="Phone" required="" class="auth-form__input">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="password" name="password" placeholder="Password" id="password" required="" class="auth-form__input">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="password" name="passwordConf" placeholder="Confirm Password" id="password_conf" required="" class="auth-form__input">
+                            </div>
+                            
+                            <div class="auth-form__radio">
+                                    <input type="radio" value="Student" name="role" id="student" >
+                                    <label for="student">I'm student</label><br>
+                                    <input type="radio" value="Teacher" name="role" id="teacher" >
+                                    <label for="teacher">I'm teacher</label> 
+                            </div>
+                            </div>
+                            <div class="auth-form_control">
+                            <button type="submit" class="btn btn--primary btn--disabled">Sign up</button>
+                            </div>
+                        </form>
+                         
+                        
+                        <div class="auth-form__aside">
+                            <p class="auth-form__policy-text">
+                                By signing up, you agree to our
+                                <a href="" class="auth-form__text-link">Terms</a>,
+                                <a href="" class="auth-form__text-link">Data Policy</a> and
+                                <a href="" class="auth-form__text-link">Cookies Policy</a>
+                            </p>
+                        </div>
+                        
+                        <div class="auth-form__or">
+                            <div class="auth-form__line"></div>
+                            <div class="auth-form__or-text">Or</div>
+                            <div class="auth-form__line"></div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="auth-form_socials">
+                        <a href="" class="auth-form_socials--facebook btn btn--size-s btn--with-icon">
+                            <i class="auth-form_socials-icon fab fa-facebook-square"></i>    
+                            <span class="auth-form_socials-title">Sign in with Facebook</span> 
+                            
+                        </a>
+                        <a href="" class="auth-form_socials--google btn btn--size-s btn--with-icon">
+                            <i class="auth-form_socials-icon fab fa-google"></i>   
+                            <span class="auth-form_socials-title">Sign in with Google</span> 
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

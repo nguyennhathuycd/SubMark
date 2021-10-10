@@ -1,0 +1,29 @@
+<div class="nav-container">
+<div class="wrapper">
+<div class="grid">
+    <nav class="header__navbar">
+
+        <div class="logo">
+            <img class="logo-full"src="/assets/img/logo.svg" alt="" >
+        </div>
+
+        <ul class="header__navbar-list header__navbar-list-home">
+            <li class="header__navbar-item">1-University</li>
+            <li class="header__navbar-item">About</li>
+            <li class="header__navbar-item">Blog</li>
+            <li class="header__navbar-item">Contact</li>
+            <li class="header__navbar-item">Help</li>  
+        </ul>
+        {{#if user}}
+            <a href="/logout"><li class="header__navbar-item">Logout</li></a>
+        {{else}}
+            <ul class="header__navbar-list">
+                <a href="/sign_in"><li class="header__navbar-item">Sign in</li></a>
+                <a href="/sign_up"><li class="header__navbar-item">Sign up</li></a>
+            </ul>    
+        {{/if}}
+        
+    </nav>
+</div>
+</div>
+</div>
