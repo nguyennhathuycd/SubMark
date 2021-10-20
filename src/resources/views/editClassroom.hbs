@@ -1,0 +1,15 @@
+ <div id="content">
+    <div class="content-heading">
+        <p>Update class</p>
+    </div>
+</div>
+
+<div class="class-item">
+    <form method="POST" action="/classroom/{{classes._id}}?_method=PUT">
+        <div class="fl">
+            <a class="class-name">Class name: </a></br>
+            <input type="text" class="form-control" value="{{classes.class_name}}" id="class_name" name="class_name">
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

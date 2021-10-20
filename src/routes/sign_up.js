@@ -4,7 +4,7 @@ var User = require('../models/user');
 const { body, validationResult } = require('express-validator');
 
 router.get('/', function(req, res, next) {
-    res.render('sign_up')
+    res.render('sign_up', {style: 'main.css'})
 })
 
 //POST route for updating data
@@ -19,12 +19,12 @@ router.post('/',
   let errors = validationResult(req);
   if (await !errors.isEmpty()) {
     // return res.status(422).json({ errors: errors.array() });
-    return res.render('sign_up', {errors: errors.array()});
+    return res.render('sign_up', {errors: errors.array(), style: 'main.css'});
   }
   // confirm that user typed same password twice
   if (req.body.password !== req.body.passwordConf) {
     errors = [{"location": "body"},{"msg": "Password dont match"}]
-    return res.render('sign_up', {errors: errors});
+    return res.render('sign_up', {errors: errors, style: 'main.css'});
   }
 
   if (req.body.email &&
@@ -37,7 +37,7 @@ router.post('/',
     .exec(function (err, user) {
       if (user) {
         errors = [{"location": "body"},{"msg": "Email has already registered. Please use a different email!"}]
-        return res.render('sign_up', {errors: errors});
+        return res.render('sign_up', {errors: errors, style: 'main.css'});
       } else{
         var userData = {
           email: req.body.email,
@@ -49,10 +49,10 @@ router.post('/',
         User.create(userData, function (error, user) {
           if (error) {
             errors = [{"location": "body"},{"msg": "User is not created!"}]
-            return res.render('sign_up', {errors: errors});
+            return res.render('sign_up', {errors: errors, style: 'main.css'});
           } else {
             req.session.userId = user._id;
-            return res.redirect('/profile');
+            return res.redirect('classroom');
           }
         });
       }
@@ -60,7 +60,7 @@ router.post('/',
 
   } else {
     errors = [{"location": "body"},{"msg": "All fields required"}]
-    return res.render('sign_up', {errors: errors});
+    return res.render('sign_up', {errors: errors, style: 'main.css'});
   }
 })
 

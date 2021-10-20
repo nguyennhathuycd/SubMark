@@ -17,10 +17,11 @@ router.get('/', function (req, res, next) {
             // return next(err);
             // res.status(200).json('Your session has expired. Please log in again');
             let errors = 'Your session has expired. Please log in again';
-            return res.render('sign_in', {errors:errors})
+            return res.render('sign_in' ,{errors:errors, style: 'main.css'})
           } else {
-            res.render('profile', {
-              user: mongooseToObject(user)
+            res.render('profile',{
+              user: mongooseToObject(user),
+              style: 'ClassroomManagement.css'
             })
           }
         }

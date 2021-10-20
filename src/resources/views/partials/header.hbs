@@ -1,29 +1,74 @@
-<div class="nav-container">
-<div class="wrapper">
-<div class="grid">
-    <nav class="header__navbar">
-
+{{#ifCond user '||' classes}}
+    <div id="sidebar">
         <div class="logo">
-            <img class="logo-full"src="/assets/img/logo.svg" alt="" >
+            <img src="./assets/img/logo.png" alt="">
         </div>
-
-        <ul class="header__navbar-list header__navbar-list-home">
-            <li class="header__navbar-item">1-University</li>
-            <li class="header__navbar-item">About</li>
-            <li class="header__navbar-item">Blog</li>
-            <li class="header__navbar-item">Contact</li>
-            <li class="header__navbar-item">Help</li>  
-        </ul>
-        {{#if user}}
-            <a href="/logout"><li class="header__navbar-item">Logout</li></a>
-        {{else}}
-            <ul class="header__navbar-list">
-                <a href="/sign_in"><li class="header__navbar-item">Sign in</li></a>
-                <a href="/sign_up"><li class="header__navbar-item">Sign up</li></a>
-            </ul>    
-        {{/if}}
-        
-    </nav>
-</div>
-</div>
-</div>
+        <div class="sidebar-list">
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-list"></i>
+                        Courses
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <p>Need help?</p>
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-question-circle"></i>
+                        Support
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-envelope"></i>
+                        Email us
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="header">
+        <nav class="header__navbar">
+            <a class="my-classes" href="classroom">My Classes</a> 
+            <div class="header_narbar-user">
+                <img src="assets/img/Saitama.JPG" alt="" class="header__navbar-user-img">
+                <span class="header__navbar-user-name">Sinh Trần</span>
+                <ul class="header__navbar-user-menu">
+                    <li class="header__navbar-user-item">
+                        <a  href="profile">My account</a>
+                    </li>
+                    <li class="header__navbar-user-item">
+                        <a  href="logout">Sign out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+{{else}}
+    <div class="nav-container">
+        <div class="wrapper">
+            <div class="grid">
+                <nav class="header__navbar">
+                    <div class="logo">
+                        <img class="logo-full"src="/assets/img/logo.svg" alt="" >
+                    </div>
+                    <ul class="header__navbar-list header__navbar-list-home">
+                        <li class="header__navbar-item">1-University</li>
+                        <li class="header__navbar-item">About</li>
+                        <li class="header__navbar-item">Blog</li>
+                        <li class="header__navbar-item">Contact</li>
+                        <li class="header__navbar-item">Help</li>  
+                    </ul>
+                    <ul class="header__navbar-list">
+                        <a href="/sign_in"><li class="header__navbar-item">Sign in</li></a>
+                        <a href="/sign_up"><li class="header__navbar-item">Sign up</li></a>
+                    </ul>    
+                </nav>
+            </div>
+        </div>
+    </div>
+{{/ifCond}}

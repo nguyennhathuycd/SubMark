@@ -1,0 +1,167 @@
+
+    <div id="sidebar">
+        <div class="logo">
+            <img src="assets/img/logo.png" alt="">
+        </div>
+        <div class="sidebar-list">
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-list"></i>
+                        Courses
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        <div class="content-heading">
+            <p>My Classes</p>
+            <button type="button" class="create-btn btn-primary" data-toggle="modal" data-target="#createNewClass"><i class="fas fa-plus-circle"></i>Create new class</button>
+        </div>
+        {{#each classes}}
+        <div class="class-item">
+            <div class="fl">
+                <a href="/classroom/assignments" class="class-name">{{class_name}}</a></br>
+                <a href="/classroom/assignments" class="assignments">5 assignments</a>
+            </div>
+            <div class="class-btn">
+                <ul>
+                    <li><a href="classroom/edit/{{this._id}}"><i class="fas fa-cog"></i></a></li>
+                    <li><a href="" class="fas fa-user-plus" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-class-modal"></a></li>
+                    {{!-- <li><a href="deleteClassroom"><i class="fas fa-user-plus"></i></a></li> --}}
+                </ul>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    
+    {{!-- <form method="POST" action="/classes/myClasses">
+        <div class="modal" id="createNewClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-container" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create new class</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="form-group">
+                    <label for="recipient-name" class="modal-header">Class name:</label>
+                    <input type="text" class="form-control" id="class_name" name="class_name">
+                </div>
+                </form >
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+            </div>
+            </div>
+        </div>
+    </form> --}}
+    
+    {{!-- form create class --}}
+    <form method="POST" action="/classroom">
+        <div class="modal js-modal" id="createNewClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-container js-modal-container">
+                <div class="modal-header">
+                    <p>Create a new class</p>
+                </div>
+                <div class="modal-body">
+                    <label for="class-name" class="modal-label">
+                        Enter a class name
+                    </label>
+                    <input type="text" class="modal-input" id="class_name" name="class_name" placeholder="Class name (required)" required="true">
+
+                    {{!-- <label for="class-topic" class="modal-label">
+                        Enter a class topic
+                    </label>
+                    <input id="class-topic" type="text" class="modal-input" placeholder="Topic"> --}}
+                    <ul>
+                        <button type="button" class="modal-cancel btn-secondary" data-dismiss="modal">Close</button>
+                        {{!-- <li><button class="modal-create">Create</button></li> --}}
+                        <button type="submit" class="modal-create btn-primary">Create</button>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="delete-class-modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-container" role="document">
+            <div class="modal-header">
+                Delete class?
+            </div>
+            <div class="modal-body">
+                <label for="class-name" class="modal-label">
+                    Are you sure delete this class?
+                </label>
+                <ul>
+                    <button id="btn-delete-class" type="submit" class="modal-create btn-primary" style="background-color: red;">Delete</button>
+                    <button type="button" class="modal-cancel" data-dismiss="modal" aria-label="Close">Close</button>
+                    {{!-- <li><button class="modal-create">Create</button></li> --}}
+                </ul>
+            </div>
+
+                {{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button> --}}
+            {{!-- <div class="modal-body">
+                <p>Are you sure delete this class?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-class" type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div> --}}
+    </div>
+
+    {{!-- Delete hidden form --}}
+    <form name="delete-class-form" method="POST"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        let classId
+        let btnDeleteClass = document.getElementById('btn-delete-class')
+        let deleteForm = document.forms['delete-class-form']
+        
+        // When dialog delete confirm clicked
+        $('#delete-class-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            classId = button.data('id')
+        })
+
+        btnDeleteClass.onclick = function() {
+            deleteForm.action = '/classroom/' + classId + '?_method=DELETE'
+            deleteForm.submit()
+        }
+    })
+</script>
+
+    {{!-- <script>
+        const creClassBtn = document.querySelector('.js-create-new-class')
+        const modal = document.querySelector('.js-modal')
+        const modalClose = document.querySelector('.js-modal-close')
+        const modalContainer = document.querySelector('.js-modal-container')
+        function showCreClass(){
+            modal.classList.add('open')
+        }
+        function hideCreClass(){
+            modal.classList.remove('open')
+        }
+        creClassBtn.addEventListener('click', showCreClass)
+        modalClose.addEventListener('click', hideCreClass)
+        modal.addEventListener('click', hideCreClass)
+        modalContainer.addEventListener('click', function(event){
+            event.stopPropagation()
+        })
+        function Redirect(){
+            window.location="./ListAssignment.html"
+        }
+        const openAssignments = document.querySelectorAll('.js-open-class')
+        for(const openAssignment of openAssignments){
+            openAssignment.addEventListener('click', Redirect)
+        }
+    </script> --}}

@@ -32,6 +32,24 @@ app.engine('hbs', handlebars({ extname: 'hbs'}))
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'resources', 'views'))
 
+var hbs = handlebars.create({});
+
+hbs.handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+  switch (operator) {
+      case '||':
+          return (v1 || v2) ? options.fn(this) : options.inverse(this);
+      default:
+          return options.inverse(this);
+  }
+});
+
+// register new function
+hbs.handlebars.registerHelper('increasePrice', function(price) {
+  price+=10;
+  return price;
+})
+
+
 // parse incoming requests
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -39,7 +57,7 @@ app.use(express.urlencoded({ extended: false }))
 // serve static files from template
 app.use(express.static(__dirname + '/public'))
 
-route(app)
+  route(app)
 
 app.listen( process.env.PORT || port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

@@ -1,6 +1,18 @@
-<div class="mt-4">
-    <h3>Mail: </h3>{{user.email}}
-    <h3>Phone: </h3>{{user.phone}}<br>
-    <h3>Role: </h3>{{user.role}}<br>
-    <a type="button" href="/logout">Logout</a>
+{{!-- <div id="profile">
+    <p>Mail:</p>  {{user.email}}
+    <h3>Phone: {{user.phone}}
+    <h3>Role: {{user.role}}
+</div> --}}
+
+
+<div id="content">
+    <div class="fl">
+        <a href="classroom" class="class-name">Return classroom</a>
+    </div>
+    <div class="content-heading">
+        <p>Mail: {{user.email}}</p>
+        <p>Phone: {{user.phone}}</p> 
+        <p>Role: {{user.role}}</p>
+    </div>
+    <br>
 </div>
