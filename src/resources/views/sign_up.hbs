@@ -23,7 +23,11 @@
                <!--Authen form-->
                <div class="auth-form">
                    <div class="auth-form__container">
+                        <a href="/" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
                         <div class="auth-form__header">
+                            {{!-- Icon close --}}
                             <h3 class="auth-form__heading">Sign Up</h3>
                             <a href="sign_in"><span class="auth-form__swith-btn">Sign In</span></a>
                         </div>
@@ -32,13 +36,16 @@
                             <div class="auth-form__form">
                                 {{#if errors}}
                                     {{#each errors}}
-                                        <div class="alert alert-danger" >
+                                        <div class="alert alert-danger text-danger">
                                             {{this.msg}}
                                         </div>
                                     {{/each}}
                                 {{/if}}
                             <div class="auth-form__group">
                                 <input type="text" name="email" required="" class="auth-form__input" placeholder="Email">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="text" name="name" placeholder="Name" required="" class="auth-form__input">
                             </div>
                             <div class="auth-form__group">
                                 <input type="text" name="phone" placeholder="Phone" required="" class="auth-form__input">
@@ -86,7 +93,7 @@
                             <span class="auth-form_socials-title">Sign in with Facebook</span> 
                             
                         </a>
-                        <a href="" class="auth-form_socials--google btn btn--size-s btn--with-icon">
+                        <a href="/authGoogle" class="auth-form_socials--google btn btn--size-s btn--with-icon">
                             <i class="auth-form_socials-icon fab fa-google"></i>   
                             <span class="auth-form_socials-title">Sign in with Google</span> 
                         </a>

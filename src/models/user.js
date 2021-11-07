@@ -8,19 +8,18 @@ var UserSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  name: {
+    type: String,
+  },
   phone: {
     type: String,
-    unique: true,
-    required: true,
   },
   role: {
     type: String,
-    required: true,
   },
   password: {
     type: String,
-    required: true,
-  }
+  },
 });
 
 //authenticate input against database
@@ -47,6 +46,9 @@ UserSchema.statics.authenticate = function (email, password, callback) {
 //hashing a password before saving it to the database
 UserSchema.pre('save', function (next) {
   var user = this;
+  if (user.password == null) {
+    next();
+  }
   bcrypt.hash(user.password, 10, function (err, hash) {
     if (err) {
       return next(err);

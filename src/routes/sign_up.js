@@ -4,12 +4,13 @@ var User = require('../models/user');
 const { body, validationResult } = require('express-validator');
 
 router.get('/', function(req, res, next) {
-    res.render('sign_up', {style: 'main.css'})
+    res.render('sign_up', {style: 'main.css', notLoggin: true})
 })
 
 //POST route for updating data
 router.post('/', 
   [body('email').isEmail().withMessage('Invalid email address'),
+  body('name'),
   body('password')
   .isLength(8).withMessage('Password must have 8 characters')
   .matches('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$').withMessage('Password must contain at least one number and one letter.'),
@@ -19,16 +20,17 @@ router.post('/',
   let errors = validationResult(req);
   if (await !errors.isEmpty()) {
     // return res.status(422).json({ errors: errors.array() });
-    return res.render('sign_up', {errors: errors.array(), style: 'main.css'});
+    return res.render('sign_up', {errors: errors.array(), style: 'main.css', notLoggin: true});
   }
   // confirm that user typed same password twice
   if (req.body.password !== req.body.passwordConf) {
     errors = [{"location": "body"},{"msg": "Password dont match"}]
-    return res.render('sign_up', {errors: errors, style: 'main.css'});
+    res.render('sign_up', {errors: errors, style: 'main.css', notLoggin: true});
   }
 
   if (req.body.email &&
     req.body.role &&
+    req.body.name &&
     req.body.phone &&
     req.body.password &&
     req.body.passwordConf) {
@@ -37,10 +39,11 @@ router.post('/',
     .exec(function (err, user) {
       if (user) {
         errors = [{"location": "body"},{"msg": "Email has already registered. Please use a different email!"}]
-        return res.render('sign_up', {errors: errors, style: 'main.css'});
+        res.render('sign_up', {errors: errors, style: 'main.css', notLoggin: true});
       } else{
         var userData = {
           email: req.body.email,
+          name: req.body.name,
           phone: req.body.phone,
           role: req.body.role,
           password: req.body.password,
@@ -49,18 +52,18 @@ router.post('/',
         User.create(userData, function (error, user) {
           if (error) {
             errors = [{"location": "body"},{"msg": "User is not created!"}]
-            return res.render('sign_up', {errors: errors, style: 'main.css'});
+            return res.render('sign_up', {errors: errors, style: 'main.css', notLoggin: true});
           } else {
-            req.session.userId = user._id;
-            return res.redirect('classroom');
+            req.session._id = user._id;
+            req.session.name = user.name
+            return res.redirect('/classroom');
           }
         });
       }
     });
-
   } else {
     errors = [{"location": "body"},{"msg": "All fields required"}]
-    return res.render('sign_up', {errors: errors, style: 'main.css'});
+    res.redirect('/classroom');
   }
 })
 

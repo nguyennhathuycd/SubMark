@@ -1,11 +1,57 @@
-{{!-- <div id="profile">
-    <p>Mail:</p>  {{user.email}}
-    <h3>Phone: {{user.phone}}
-    <h3>Role: {{user.role}}
-</div> --}}
-
-
-<div id="content">
+<div class="grid__column-10">
+    <div class="info">
+    <div class="title"><h1>Teacher Information</h1></div>
+    <div class="main-agileits">
+    <div class="right-wthree">
+        {{#if user.picture}}
+            <img src="{{user.picture}}" alt="image" />
+        {{else}}
+            <img src="https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png" alt="image" />
+        {{/if}}
+            <h3>{{user.name}}</h3>
+        </div>
+        <div class="left-w3ls">
+        <ul class="address">
+            <li>
+                <ul class="address-text">
+                    <li><b>EMAIL: </b></li>
+                    <li><a href="mailto:{{user.email}}">{{user.email}}</a></li>
+                </ul>
+            </li>
+            <li>
+                <ul class="address-text">
+                    <li><b>NAME: </b></li>
+                    <li><a href="mailto:{{user.name}}">{{user.name}}</a></li>
+                </ul>
+            </li>
+            <li>
+                <ul class="address-text">
+                    <li><b>PHONE: </b></li>
+                    <li>{{user.phone}}</li>
+                </ul>
+            </li>
+            <li>
+                <ul class="address-text">
+                    <li><b>ADDRESS: </b></li>
+                    <li>{{user.address}}</li>
+                </ul>
+            </li>
+            <li>
+                <ul class="address-text">
+                    <li><b>BIRTHDAY:</b></li>
+                    <li>{{user.birthday}}</li>
+                </ul>
+            </li>
+        </ul>
+            <div class="buttonedit">
+                <a href="#small-dialog">Edit</a>
+            </div>
+        </div>          
+        <div class="clear"></div>
+    </div>
+</div>
+</div>
+{{!-- <div id="content">
     <div class="fl">
         <a href="classroom" class="class-name">Return classroom</a>
     </div>
@@ -15,4 +61,4 @@
         <p>Role: {{user.role}}</p>
     </div>
     <br>
-</div>
+</div> --}}

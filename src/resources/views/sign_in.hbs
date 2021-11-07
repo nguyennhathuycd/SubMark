@@ -9,7 +9,7 @@
                     <a href="#">Join Now</a>
                 </div>
                 <div class="hero-image">
-                    <img class="photo-bg"src="assets/img/rose.svg" alt="" >
+                    <img class="photo-bg"src="/assets/img/rose.svg" alt="" >
                 </div>
             </header>
         </div>
@@ -17,58 +17,60 @@
      <!--Modal layout-->
      <div class="modal">
         <div class="modal__overlay"></div>
-       
         <div class="modal__body">
             <div class="modal__inner">
                <!--Authen form-->
                <form method="POST" action="/sign_in">
+                
                     <div class="auth-form">
-                   <div class="auth-form__container">
-                        <div class="auth-form__header">
-                            <h3 class="auth-form__heading">Sign In</h3>
-                            <a href="sign_up"><span class="auth-form__swith-btn">Sign Up</span></a>
-                        </div>  
+                        <div class="auth-form__container">
+                            {{!-- Icon close --}}
+                            <a href="/" type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                            <div class="auth-form__header">
+                                <h3 class="auth-form__heading">Sign In</h3>
+                                <a href="sign_up"><span class="auth-form__swith-btn">Sign Up</span></a>
+                            </div>  
 
-                        <div class="auth-form__form">
+                            <div class="auth-form__form">
                                 {{#if errors}}
-                                    <div class="alert alert-danger" role="alert">
+                                    <div class="alert alert-danger text-danger" role="alert">
                                         {{errors}}
                                     </div>
                                 {{/if}}
-                            <div class="auth-form__group">
-                                <input type="text" name="logemail" placeholder="Email" required="" class="auth-form__input">
-                            </div>
-                            <div class="auth-form__group">
-                                <input type="password" name="logpassword" placeholder="Password" required=""  class="auth-form__input">
+                                <div class="auth-form__group">
+                                    <input type="text" name="logemail" placeholder="Email" required="" class="auth-form__input">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="password" name="logpassword" placeholder="Password" required=""  class="auth-form__input">
+                                </div>
+                            </div>  
+                            
+                            <div class="auth-form_control">
+                                <button type="submit" class="btn btn--primary btn--disabled">Sign in</button>
                             </div>
                             
-                        </div>  
-                        
-                        <div class="auth-form_control">
-                            <button type="submit" class="btn btn--primary btn--disabled">Sign in</button>
-                        </div>
-                        
-                        <div class="auth-form__or">
-                            <div class="auth-form__line"></div>
-                            <div class="auth-form__or-text">Or</div>
-                            <div class="auth-form__line"></div>
-                        </div>
+                            <div class="auth-form__or">
+                                <div class="auth-form__line"></div>
+                                <div class="auth-form__or-text">Or</div>
+                                <div class="auth-form__line"></div>
+                            </div>
 
-                    </div>
+                        </div>
                     
-                    <div class="auth-form_socials">
-                        <a href="" class="auth-form_socials--facebook btn btn--size-s btn--with-icon">
-                            <i class="auth-form_socials-icon fab fa-facebook-square"></i>    
-                            <span class="auth-form_socials-title">Sign in with Facebook</span> 
-                            
-                        </a>
-                        <a href="" class="auth-form_socials--google btn btn--size-s btn--with-icon">
-                            <i class="auth-form_socials-icon fab fa-google"></i>   
-                            <span class="auth-form_socials-title">Sign in with Google</span> 
-                        </a>
+                        <div class="auth-form_socials">
+                            <a href="" class="auth-form_socials--facebook btn btn--size-s btn--with-icon">
+                                <i class="auth-form_socials-icon fab fa-facebook-square"></i>    
+                                <span class="auth-form_socials-title">Sign in with Facebook</span> 
+                                
+                            </a>
+                            <a href="/authGoogle" class="auth-form_socials--google btn btn--size-s btn--with-icon">
+                                <i class="auth-form_socials-icon fab fa-google"></i>   
+                                <span class="auth-form_socials-title">Sign in with Google</span> 
+                            </a>
+                        </div>
                     </div>
-
-                </div>
                </form>
             </div>
         </div>

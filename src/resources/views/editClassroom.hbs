@@ -1,15 +1,131 @@
- <div id="content">
-    <div class="content-heading">
-        <p>Update class</p>
-    </div>
-</div>
-
-<div class="class-item">
-    <form method="POST" action="/classroom/{{classes._id}}?_method=PUT">
-        <div class="fl">
-            <a class="class-name">Class name: </a></br>
-            <input type="text" class="form-control" value="{{classes.class_name}}" id="class_name" name="class_name">
+<div id="content">
+    <form method="POST" action="/classroom/edit/{{classes._id}}?_method=PUT">
+        <div class="content-heading">
+            <p>Classroom settings</p>
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <div class="class-item fl">
+            <div class="class-details">
+                <p class="header-item">Class details</p>
+                <label for="class-name" class="label">
+                    Class name
+                </label>
+                <input id="class_name" name="class_name" type="text" class="input" placeholder="Class name (required)" value="{{classes.class_name}}" required="true">
+                <label for="class-topic" class="label">
+                    Class topic
+                </label>
+                <input id="class_topic" name="class_topic" type="text" class="input" placeholder="Topic" value="{{classes.class_topic}}">
+            </div>
+            <div class="general">
+                <p class="header-item">General</p>
+                <div class="code-class">
+                    <div class="fl">
+                        <p class="items">Manage invite codes</p>
+                        <p class="description">Settings apply to both invite links and class codes</p>
+                    </div>
+                    <!-- Rounded switch -->
+                    <label class="switch">
+                        <input id="show-code" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div id="code-class-detail">
+                    <div class="clear"></div>
+                    <div class="items-link">
+                        <p class="invite-link">Invite link</p>
+                        <p class="class-link">https://Supmark.herokuapp.com/classroom/{{classes._id}}<i class="copy-icon far fa-clone" data-clipboard-target='.class-link'></i></p>
+                    </div>
+                    <div class="items-code">
+                        <p class="items fl">Class code</p>
+                        <p class="items-class-code">{{classes.class_code}}<i class="copy-icon far fa-clone" data-clipboard-target='.items-class-code'></i></p>
+                    </div>
+                    <div class="clear"></div>
+                    {{!-- <div class="show-deleted-items">
+                        <div class="fl">
+                            <p class="items">Show deleted items</p>
+                            <p class="description">Only teachers can view deleted items.</p>
+                        </div>
+                        <!-- Rounded switch -->
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div> --}}
+                </div>
+            </div>
+            {{!-- <div class="grading">
+                <p class="header-item">Grading</p>
+                <div class="showgrade">
+                    <p class="items fl">Show overall grade to students</p>
+                    <!-- Rounded switch -->
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div> --}}
+        </div>
+        <div class="button">    
+            <button class="save-btn" type="submit"><i class="far fa-save"></i>Save</button>
+            <br>
+            <a class="delete-btn js-delete-class" ><i class="far fa-trash-alt"></i>Delete class</a>
+            <br>
+            <a class="cancel-btn" href="/classroom"><i class="far fa-times-circle"></i>Return</a>
+        </div>
     </form>
 </div>
+<div class="modal js-modal">
+    <div class="modal-container js-modal-container">
+            <div class="modal-header">
+                <p>Delete class</p>
+            </div>
+            <div class="modal-body">
+                <label class="modal-label" style="color: red; margin-top: 30px; text-align:center">
+                    Are you sure you want to delete this class?
+                </label>
+                <ul>
+                    <form method="POST" action="/classroom/edit/{{classes._id}}?_method=DELETE">
+                    <li><button type="submit" class="modal-delete" style="margin-top: 30px; background-color:red">Delete</button></li>
+                    </form>
+                    <li><button class="modal-cancel js-modal-close" style="margin-top: 30px;">Cancel</button></li>
+                </ul>
+            </div>
+            
+    </div>
+</div>
+<script>
+    //Show code class
+    var showCodeBtn = document.getElementById('show-code');
+    var codeClass = document.getElementById('code-class-detail');
+    showCodeBtn.addEventListener('click',function(){
+        if(this.checked){
+            codeClass.style.display='block';
+        }
+        else{
+            codeClass.style.display='none';
+        }
+    });
+    //Detele class
+    const delClassBtn = document.querySelector('.js-delete-class')
+    const modal = document.querySelector('.js-modal')
+    const modalClose = document.querySelector('.js-modal-close')
+    const modalContainer = document.querySelector('.js-modal-container')
+    function showCreClass(){
+        modal.classList.add('open')
+    }
+    function hideCreClass(){
+        modal.classList.remove('open')
+    }
+    delClassBtn.addEventListener('click', showCreClass)
+    modalClose.addEventListener('click', hideCreClass)
+    modal.addEventListener('click', hideCreClass)
+    modalContainer.addEventListener('click', function(event){
+        event.stopPropagation()
+    })
+//Copy code
+</script>
+<script src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>
+<script>
+    (function(){
+        new Clipboard('.copy-icon');
+    })();
+</script>

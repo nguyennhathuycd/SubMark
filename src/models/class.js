@@ -5,6 +5,12 @@ var ClassesSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+    class_topic: {
+      type: String,
+    },
+    class_code: {
+      type: String,
+    },
 });
 
 var Class = mongoose.model('classes', ClassesSchema);

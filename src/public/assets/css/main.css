@@ -205,7 +205,8 @@ header a:hover{
 
 header .hero-image .photo-bg {
     position: absolute;
-    width: 1039px;
+    /* width: 1039px; */
+    width: 800px;
     height: 1000px;
     left: 37px;
     top: -60px; 

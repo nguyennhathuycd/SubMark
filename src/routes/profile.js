@@ -1,31 +1,39 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb+srv://nguyennhathuycd:*N123456789@cluster0.wvlgp.mongodb.net/supmark?retryWrites=true&w=majority";
+var ObjectId = require('mongodb').ObjectId;
 
-const {mongooseToObject} = require('../util/mongoose')
 
 // GET route after registering
 router.get('/', function (req, res, next) {
-    User.findById(req.session.userId)
-      .exec(function (error, user) {
-        if (error) {
-          return next(error);
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      console.log(err)
+    };
+    var dbo = db.db("supmark");
+    let condition
+    if (req.session._id) {
+      condition = { _id : new ObjectId(req.session._id)}
+    } else if (req.user) {
+      condition = {googleId: req.user.id}
+    }
+    console.log("req.session._id " + req.session._id)
+    console.log("condition: " + condition)
+    dbo.collection("users").findOne(condition, function(err, user) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(user)
+        db.close()
+        if (req.session._id) {
+          res.render('profile', {user: user, style:'ClassroomManagement.css'})
         } else {
-          if (user === null) {
-            // var err = new Error('Not authorized! Go back!');
-            // err.status = 400;
-            // return next(err);
-            // res.status(200).json('Your session has expired. Please log in again');
-            let errors = 'Your session has expired. Please log in again';
-            return res.render('sign_in' ,{errors:errors, style: 'main.css'})
-          } else {
-            res.render('profile',{
-              user: mongooseToObject(user),
-              style: 'ClassroomManagement.css'
-            })
-          }
-        }
-      });
-  });
+          res.render('profile', {user: user, style:'ClassroomManagement.css'})
+        } 
+      }
+    })
+  })
+});
 
-  module.exports = router
+module.exports = router
