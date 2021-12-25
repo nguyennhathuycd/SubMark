@@ -1,0 +1,49 @@
+<div id="content">
+        <div class="assignment">
+            <div class="phase-content">
+                <p>Enter the details of your assignment?</p>
+                <form action="/assignment?c={{classID}}" method="POST" enctype="multipart/form-data">
+                    <div class="assignment-name">
+                        <label for="title">Assignment name:</label>
+                        <input type="text" class="form-control" placeholder="Title" name="title" required>
+                    </div>
+                    <div class="due-date">
+                        <label for="due-date">Open date:</label>
+                        <input type="date" name="open_date" required>
+                        <input type="time" name="open_time" required>
+                    </div>
+                    <div class="due-date">
+                        <label for="due-date">Due date:</label>
+                        <input type="date" name="due_date" required>
+                        <input type="time" name="due_time" required>
+                    </div>
+                    <div class="assignment-description">
+                        <label for="description">Assignment description (optional):</label>
+                        <textarea name="description" placeholder="Description" class="form-control"></textarea>
+                    </div>
+                    <div class="image-upload">
+                        <label for="image"><i class="fas fa-paperclip attach-file">Upload image</i></label>
+                        <input type="file" name="image" id="image" class="form-control-file text-back">
+                    </div>
+                    <div class="buttons">
+                        <button type="submit" class="create-btn js-create-btn">Create</button>
+                        <a href="javascript:history.back()" class="cancel-btn js-cancel-btn">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal js-modal">
+        <div class="modal-container js-modal-container">
+            <div class="modal-header">
+                <p>Discard changes?</p>
+            </div>
+            <div class="modal-body">
+                <p class="modal-label">Your changes have not been saved?</p>
+                <ul>
+                    <li><a href="./ListAssignment.hbs"><button class="modal-delete">Discard</button></a></li>
+                    <li><button class="modal-cancel js-modal-close">Cancel</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>

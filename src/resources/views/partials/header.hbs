@@ -29,11 +29,38 @@
         <div class="sidebar-list">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="http://localhost:3000/classroom">
                         <i class="fas fa-list"></i>
-                        Courses
+                        Classes
                     </a>
                 </li>
+                {{#if assignments}}
+                    {{#ifEquals role "Student"}}
+                        <li style="background-color: #707174;">
+                            <a href="assignment?class_name={{class_name}}&classID={{classID}}"><i class="fas fa-book"></i>Assignments</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-user-graduate"></i>Gradebook</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-comment"></i>Messages</a>
+                        </li>
+                    {{else}}
+                        <li style="background-color: #707174;">
+                            <a href="assignment?class_name={{class_name}}&classID={{classID}}"><i class="fas fa-book"></i>Assignments</a>
+                        </li>
+                        <li>
+                            <a href="./Students.html"><i class="fas fa-graduation-cap"></i>Students</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-poll"></i>Results</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-comment"></i>Messages</a>
+                        </li>
+                    {{/ifEquals}} 
+                {{else}}
+                {{/if}} 
             </ul>
         </div>
         <div class="sidebar-footer">
@@ -56,7 +83,14 @@
     </div>
     <div id="header">
         <nav class="header__navbar">
-            <a class="my-classes" href="/classroom">My Classes</a> 
+            <a class="my-classes" href="/classroom">My Classes</a>
+            {{#if assignments}}
+                {{!-- <p class="arrow">></p>
+                <a class="my-classes" href="classroom">{{class_name}}</a> --}}
+                <p class="arrow">></p>
+                <a class="my-classes-end" href="assignment?class_name={{class_name}}&classID={{classID}}">Assignments</a>
+            {{else}}
+            {{/if}}
             <div class="header_narbar-user">
                 {{#if user.picture}}
                     <img src="{{user.picture}}" alt="" class="header__navbar-user-img">
@@ -66,7 +100,7 @@
                 <span class="header__navbar-user-name">{{user.name}}</span>
                 <ul class="header__navbar-user-menu">
                     <li class="header__navbar-user-item">
-                        <a  href="/profile/{{userId}}">My account</a>
+                        <a  href="/profile">My account</a>
                     </li>
                     <li class="header__navbar-user-item">
                         <a  href="/logout">Sign out</a>

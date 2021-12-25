@@ -1,0 +1,29 @@
+<div id="content">
+    <div class="content-heading">
+        <p>{{class_name}}</p>
+    </div>
+
+    {{#each assignments}}
+        <div class="class-item js-open-class fl">
+            <div class="img">
+                <img src="./assets/img/Exercise.png" alt="">
+            </div>
+            <div class="fl">
+                <a href="/submit" class="class-name">{{title}} </a>
+                <p class="assignments"><i class="fas fa-user"></i>Created by: {{teacherName}}</p>
+                <p class="assignments"><i class="fas fa-calendar-minus"></i> Open time: {{open_datetime}}</p>
+                <p class="due-time">Due time: {{due_datetime}}</p>
+            </div>
+            <p class="sent">Sent, {{open_datetime}}</p>
+        </div>
+    {{/each}}
+</div>
+
+<script>
+    window.onload = function() {
+        if(!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
+        }
+    }
+</script>

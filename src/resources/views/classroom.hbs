@@ -7,13 +7,17 @@
             {{#each classes}}
                 <div class="class-item js-open-class">
                     <div class="fl">
-                        <a href="" class="class-name">{{class_name}}</a></br>
-                        <a href="" class="assignments">5 assignments</a>
+                        <a href="assignment?class_name={{class_name}}&classID={{_id}}" class="class-name">{{class_name}}</a></br>
+                        {{#if assignmentIDs}}
+                            <a href="assignment?class_name={{class_name}}&classID={{_id}}" class="assignments">{{assignmentIDs.length}} assignments</a>
+                        {{else}}
+                            <a href="assignment?class_name={{class_name}}&classID={{_id}}" class="assignments">0 assignment</a>
+                        {{/if}}
                     </div>
                     <div class="class-btn">
                         <ul>
-                            <li><button class="invite-btn js-invite" data-id="{{this._id}}"><i class="fas fa-user-plus"></i></button></li>
-                            <li><a href="/classroom/edit/{{this._id}}"><i class="fas fa-cog"></i></a></li>
+                            <li><button class="invite-btn js-invite" data-id="{{this._id}}" data-classID = "{{class_ID}}" data-classCode = "{{class_code}}"><i class="fas fa-user-plus"></i></button></li>
+                            <li><a href="classroom/edit/{{this._id}}"><i class="fas fa-cog"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -52,10 +56,13 @@
             </div>
             <div class="modal-body">
                 <form method="POST" name="form-invite-student">
-                <p class="invite-link">Invite link</p>
-                <p id="class_link" class="class-link"><i class="copy-icon far fa-clone" data-clipboard-target='.class-link'></i></p>
+                <p class="invite-link" id="class-ID">Class ID: </p>
+                <p class="invite-link" id="class-code">Class code: </p>
+                {{!-- <p id="class_link" class="class-link"><i class="copy-icon far fa-clone" data-clipboard-target='.class-link'></i></p> --}}
+                    {{!-- <p class="items fl">Class ID</p>
+                    <p class="items-class-code"><i class="copy-icon far fa-clone" data-clipboard-target='.items-class-code'></i></p> --}}
                 <label for="email" class="modal-label">
-                    Enter email
+                    Enter email:
                 </label>
                     <textarea  name="email" id="exampleFormControlTextarea1"></textarea>
                 <ul>
@@ -81,6 +88,8 @@
         var inviteForm = document.forms['form-invite-student']
 
         var classId
+        var class_ID
+        var class_code
         
         function showCreClass(){
             modal.classList.add('open')
@@ -97,8 +106,11 @@
         
         function showInvite(){
             classId = $(this).attr("data-id");
-            classLink = "https://Supmark.herokuapp.com/classroom/" + classId
-            document.getElementById('class_link').innerText = classLink;
+            class_ID = $(this).attr("data-classID");
+            class_code = $(this).attr("data-classCode");
+            {{!-- classLink = "https://Supmark.herokuapp.com/classroom/" + classId --}}
+            document.getElementById('class-ID').innerText =   "Class ID:   " +  class_ID;
+            document.getElementById('class-code').innerText = "Class code: " +  class_code;
             modalInvite.classList.add('open')
         }
 
@@ -109,6 +121,13 @@
         
         function hideInvite(){
             modalInvite.classList.remove('open')
+        }
+        
+        window.onload = function() {
+            if(!window.location.hash) {
+                window.location = window.location + '#loaded';
+                window.location.reload();
+            }
         }
         for(const inviteStudent of inviteStudents){
             inviteStudent.addEventListener('click', showInvite)

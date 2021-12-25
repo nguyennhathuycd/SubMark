@@ -15,8 +15,13 @@ router.post('/', function (req, res){
         res.render('sign_in', {errors:errors, style: 'main.css', notLoggin: true})
       } else {
         req.session._id = user._id;
-        req.session.name = user.name
-        res.redirect('/classroom');
+        req.session.name = user.name;
+        req.session.role = user.role;
+        if (req.session.role == "Student") {
+          res.redirect('classroom?r=student');
+        } else {
+          res.redirect('classroom?r=teacher');
+        }
       }
     });
   } else {

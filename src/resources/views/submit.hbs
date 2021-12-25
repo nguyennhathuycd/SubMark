@@ -1,0 +1,50 @@
+<div id="content">
+    <div class="content-heading">
+        <p class="img-content-text">Exercise 1</p>
+        <div class="img-assignment">
+            {{!-- <img src="../assets/img/Saitama.JPG" alt=""> --}}
+            <canvas id="myCanvas"></canvas>
+        </div>
+        <div class="submit-bar">
+            <div class="submit-bar__text">
+                <p>Submitted attachments</p>
+            </div>
+            {{!-- <div class="attach">
+                <p class="attach__text">No attachments yet</p>
+                <p class="attach__text--existent">Homework1_tranvietsinh.png</p>
+                <p class="attach__text--existent">(24KB; Oct 1, 2021 1:30 pm)</p>
+                <div class="attach__icon"><i class="fas fa-times"></i></div>
+            </div> --}}
+            <input type="file" style="display: inline;"  onchange="readURL(this);" class="add-btn"></input>
+            <p class="submit-btn js-create-btn"><i class="fas fa-plus-circle"></i>Submit</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.addEventListener(
+                "load",
+                function() {
+                    var avatarImg = new Image();
+                    var src = reader.result;
+                    avatarImg.src = src;
+
+                    avatarImg.onload = function() {
+                        var c = document.getElementById("myCanvas");
+                        var ctx = c.getContext("2d");
+                        ctx.canvas.width = 1320;
+                        ctx.canvas.height = avatarImg.height;
+                        
+                        ctx.drawImage(avatarImg, 400, 0);
+                    };
+                },
+                false
+            );
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

@@ -20,7 +20,11 @@
 </head>  
 <body>
     
-        {{> header}}
+        {{#if isMarkPage}}
+            {{> mark_header}}
+        {{else}}
+            {{> header}}
+        {{/if}}
         
         {{{body}}}
     

@@ -1,5 +1,6 @@
 const express = require('express')
 const handlebars  = require('express-handlebars')
+const Handlebar = require('handlebars');
 const methodOverride = require('method-override')
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -32,10 +33,26 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-var hbs = handlebars.create({});
+// var hbs = handlebars.create({
+//   helpers: {
+//     ifEquals: function (arg1, arg2, options) {
+//       return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+//     },
+//     getStringifiedJson: function (value) {
+//       return JSON.stringify(value);
+//     }
+//   },
+//   defaultLayout: 'main',
+//   partialsDir: ['views/partials/']
+// });
+
+
+Handlebar.registerHelper('ifEquals', function(arg1, arg2, options) {
+  return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
 
 // Template engine
-app.engine('hbs', handlebars({ extname: 'hbs'}))
+app.engine('hbs', handlebars({ extname: 'hbs'}));
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'resources', 'views'))
 

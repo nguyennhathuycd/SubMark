@@ -1,0 +1,24 @@
+{{#each result}}
+    {{studentName}}
+    <table class="table">
+    {{#each question}}
+        <body>
+            <tr>
+                <td>{{questionName}}</td>
+            </tr>
+            {{#each criteria}}
+                <tr>
+                    {{#if isChecked}}
+                        <td> <input type="checkbox" checked> </td>
+                    {{else}}
+                        <td> <input type="checkbox"> </td>
+                    {{/if}}
+                <td>{{nameCriteria}}</td>
+                <td>{{point}}</td>
+                </tr>
+            {{/each}}
+        </body>
+    {{/each}}
+    </table>
+    Total: {{totalPoint}}
+{{/each}}

@@ -44,7 +44,7 @@ router.get('/good',  function (req, res) {
             })
           }
         })
-      }); 
+      });
       res.redirect('/classroom')
   })
 

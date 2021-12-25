@@ -18,8 +18,6 @@ router.get('/', function (req, res, next) {
     } else if (req.user) {
       condition = {googleId: req.user.id}
     }
-    console.log("req.session._id " + req.session._id)
-    console.log("condition: " + condition)
     dbo.collection("users").findOne(condition, function(err, user) {
       if (err) {
         console.log(err)
@@ -27,9 +25,9 @@ router.get('/', function (req, res, next) {
         console.log(user)
         db.close()
         if (req.session._id) {
-          res.render('profile', {user: user, style:'ClassroomManagement.css'})
+          res.render('profile', {user: user, style:'profile.css'})
         } else {
-          res.render('profile', {user: user, style:'ClassroomManagement.css'})
+          res.render('profile', {user: user, style:'profile.css'})
         } 
       }
     })

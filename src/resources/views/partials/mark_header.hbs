@@ -1,0 +1,54 @@
+{{#if notLoggin}}
+    <div class="nav-container">
+        <div class="wrapper">
+            <div class="grid">
+                <nav class="header__navbar">
+                    <div class="logo">
+                        <img class="logo-full"src="/assets/img/logo.svg" alt="" >
+                    </div>
+                    <ul class="header__navbar-list header__navbar-list-home">
+                        <li class="header__navbar-item">1-University</li>
+                        <li class="header__navbar-item">About</li>
+                        <li class="header__navbar-item">Blog</li>
+                        <li class="header__navbar-item">Contact</li>
+                        <li class="header__navbar-item">Help</li>  
+                    </ul>
+                    <ul class="header__navbar-list">
+                        <a href="/sign_in"><li class="header__navbar-item">Sign in</li></a>
+                        <a href="/sign_up"><li class="header__navbar-item">Sign up</li></a>
+                    </ul>    
+                </nav>
+            </div>
+        </div>
+    </div>
+{{else}}
+    <div class="nav-container">
+        <div class="wrapper">
+            <header class="header">
+                    <nav class="header__navbar">
+                        <div class="header__logo">
+                            <img class="header__logo-captain" src="assets/img/logo.png" alt="" >
+                        </div>
+                        <ul class="header__navbar-list">
+                            <li class="header__navbar-list header_narbar-user">
+                                {{#if user.picture}}
+                                    <img src="{{user.picture}}" alt="" class="header__navbar-user-img">
+                                {{else}}
+                                    <img src="https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png" alt="" class="header__navbar-user-img">
+                                {{/if}}
+                                <span class="header__navbar-user-name">{{user.name}}</span>
+                                <ul class="header__navbar-user-menu">
+                                    <li class="header__navbar-user-item">
+                                        <a  href="/profile/{{userId}}">My account</a>
+                                    </li>
+                                    <li class="header__navbar-user-item">
+                                        <a  href="/logout">Sign out</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>    
+                    </nav>               
+            </header>
+        </div>
+    </div>
+{{/if}}

@@ -1,0 +1,59 @@
+<div id="content">
+    <div class="content-heading">
+        <p>{{class_name}}</p>
+        <a href="assignment/create?c={{classID}}" class="create-btn js-create-new-assignment">
+        <i class="fas fa-plus-circle"></i> Create new assignment</a>
+    </div>
+
+    
+    {{#each assignments}}
+        <div class="class-item js-open-class fl">
+            <div class="img">
+                <img src="./assets/img/Exercise.png" alt="">
+            </div>
+            {{!-- <div class="fl">
+                <a href="/mark?a={{_id}}" class="class-name">{{title}} </a>
+                <div class="row p-2">
+                    <div class="col-5 overflow-hidden">
+                        <img src="/uploads/images/{{img}}" class="card-img" alt="...">
+                    </div>
+
+                    <div class="col-7">
+                        <div class="d-flex align-items-start">
+                            <p class="w-100"><i> {{title}} </i></p>
+                            <p class="w-100"><i> {{description}} </i></p>
+                                <!-- display more button -->
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+            <div class="fl">
+                <a href="/mark?a={{_id}}" class="class-name">{{title}} </a>
+                {{!-- <p class="assignments"><i class="fas fa-file-alt"></i> Administered assessment</p> --}}
+                {{!-- <p class="assignments"><i class="fas fa-user"></i> abc@gmail.com</p> --}}
+                <p class="assignments"><i class="fa fa-paper-plane"></i>Submitted: 0 student</p>
+                <p class="assignments"><i class="fas fa-calendar-minus"></i> Open time: {{open_datetime}}</p>
+                <p class="due-time">Due time: {{due_datetime}}</p>
+            </div>
+            <p class="sent">Sent, {{open_datetime}}</p>
+        </div>
+    {{/each}}
+</div>
+
+<script>
+    const creAssignmentBtn = document.querySelector('.js-create-new-assignment')
+
+    function Redirect() {
+        window.location = "./CreateAssignment.hbs"
+    }
+    creAssignmentBtn.addEventListener('click', Redirect)
+    const openClassBtns = document.querySelectorAll('.js-open-class')
+
+
+    window.onload = function() {
+        if(!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
+        }
+    }
+</script>

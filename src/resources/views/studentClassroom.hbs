@@ -1,0 +1,72 @@
+<div id="content">
+        <div class="content-heading">
+            <p>My Classes</p>
+            <button class="create-btn js-create-new-class"><i class="fas fa-plus-circle"></i>Join a class</button>
+        </div>
+        {{#if classes}}
+            {{#each classes}}
+                <div class="class-item js-open-class">
+                    <div class="fl">
+                        <a href="assignment?class_name={{class_name}}&classID={{_id}}" class="class-name">{{class_name}}</a></br>
+                        {{#if assignmentIDs}}
+                            <a href="assignment?class_name={{class_name}}&classID={{_id}}" class="assignments">{{assignmentIDs.length}} assignments</a>
+                        {{else}}
+                            <a href="assignment?class_name={{class_name}}&classID={{_id}}" class="assignments">0 assignment</a>
+                        {{/if}}
+                    </div>
+                </div>
+            {{/each}}
+        {{else}}
+            <p style="display: flex; font-size: 23px; font-weight: 400; color: #000; padding-top: 32px; margin-left: 116px; margin-top: 44px;">You don't have a class yet!</p>
+        {{/if}}
+    </div>
+    <div class="modal js-modal">
+        <div class="modal-container js-modal-container">
+            <div class="modal-header">
+                <p>Join a class</p>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/classroom?r=student">
+                    <label for="class-name" class="modal-label">
+                        Enter class ID
+                    </label>
+                    <input id="class-name" name="class_ID" type="text" class="modal-input" placeholder="Class ID (required)" required="true">
+                    <label for="class-topic" class="modal-label">
+                        Enter class code
+                    </label>
+                    <input id="class-topic" name="class_code" type="text" class="modal-input" placeholder="Class code (required)" required="true">
+                    <ul>
+                    <li><button type="submit" class="modal-create">Join</button></li>
+                </form>
+                    <li><button type="button" class="modal-cancel js-modal-close">Cancel</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        const creClassBtn = document.querySelector('.js-create-new-class')
+        const modal = document.querySelector('.js-modal')
+        const modalClose = document.querySelector('.js-modal-close')
+        const modalContainer = document.querySelector('.js-modal-container')
+        
+        function showCreClass(){
+            modal.classList.add('open')
+        }
+        function hideCreClass(){
+            modal.classList.remove('open')
+        }
+        creClassBtn.addEventListener('click', showCreClass)
+        modalClose.addEventListener('click', hideCreClass)
+        modal.addEventListener('click', hideCreClass)
+        modalContainer.addEventListener('click', function(event){
+            event.stopPropagation()
+        })
+        
+        window.onload = function() {
+            if(!window.location.hash) {
+                window.location = window.location + '#loaded';
+                window.location.reload();
+            }
+        }
+    </script>
+
