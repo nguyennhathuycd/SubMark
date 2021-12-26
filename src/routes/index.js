@@ -9,9 +9,11 @@ const atuthenMiddleware = require('../middleware/authenMiddleware')
 const assignmentRouter = require('./assignment')
 const markRouter = require('./mark')
 const submitRouter = require('./submit')
+const testRouter = require('./test')
 require('../services/passport');
 
 function route(app){
+    app.use('/test', testRouter)
     app.use('/sign_in', signinRouter)
     app.use('/sign_up', signupRouter)
     // // Auth Routes

@@ -132,7 +132,7 @@ body{
 }
 .my-classes-end{
     font-size: 24px;
-    color: #727272;
+    color: #17B89B;
     cursor: default;
     text-decoration: none;
 }
@@ -229,6 +229,11 @@ body{
     margin: 40px 80px;
 }
 .img-assignment img{
+    max-width: 1320px;
+    display: flex;
+    margin: 0 auto;
+}
+.img-assignment canvas{
     max-width: 1320px;
     display: flex;
     margin: 0 auto;

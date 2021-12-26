@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+var ObjectId = require('mongodb').ObjectId;
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb+srv://nguyennhathuycd:*N123456789@cluster0.wvlgp.mongodb.net/supmark?retryWrites=true&w=majority";
 
@@ -8,31 +9,39 @@ router.get('/', function(req, res, next) {
   let page = req.query.page || 0;
   var countTests;
   var maxPage;
+  var submittedIDs = [];
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("supmark");
-    dbo.collection("test_mark").find().toArray((err, totalDocument) => {
-      if (err) throw err;
-      countTests = totalDocument.length;
-      maxPage = totalDocument.length;
-    })
-    var skipPage = perPage * page;
-    dbo.collection("test_mark").find().skip(skipPage).limit(perPage).toArray((err, tests) => {
-      if (err) throw err;
-      db.close();
-      let sendUser
-      if (req.session._id) {
-        sendUser = {
-          name: req.session.name
+    var assignmentID = ObjectId(req.query.a);
+    dbo.collection("assignments").findOne({_id: assignmentID})
+      .then(function (assignment) {
+        for(var i = 0; i < assignment.submitted.length; i++) {
+          submittedIDs[i] = assignment.submitted[i].id;
         }
-      } else {
-        sendUser = {
-          name: req.user.name.familyName + ' ' + req.user.name.givenName,
-          picture: req.user.picture
-        }
-      }
-      return res.render('mark_test', {tests: tests, currentPage: page, pages: Math.ceil(countTests / perPage), maxPage: maxPage ,isMarkPage: true ,style: "mark_test.css", user: sendUser})
-    });
+        dbo.collection("mark").find({submissionId: {$in: submittedIDs}}).toArray((err, totalDocument) => {
+          if (err) throw err;
+          countTests = totalDocument.length;
+          maxPage = totalDocument.length;
+        })
+        var skipPage = perPage * page;
+        dbo.collection("mark").find({submissionId: {$in: submittedIDs}}).skip(skipPage).limit(perPage).toArray((err, tests) => {
+          if (err) throw err;
+          db.close();
+          let sendUser
+          if (req.session._id) {
+            sendUser = {
+              name: req.session.name
+            }
+          } else {
+            sendUser = {
+              name: req.user.name.familyName + ' ' + req.user.name.givenName,
+              picture: req.user.picture
+            }
+          }
+          return res.render('test', {tests: tests, currentPage: page, pages: Math.ceil(countTests / perPage), maxPage: maxPage ,isMarkPage: true ,style: "test2.css", user: sendUser})
+        });
+      })
   });
 });
 

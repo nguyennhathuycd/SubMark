@@ -7,11 +7,11 @@
             {{#each classes}}
                 <div class="class-item js-open-class">
                     <div class="fl">
-                        <a href="assignment?class_name={{class_name}}&classID={{_id}}" class="class-name">{{class_name}}</a></br>
+                        <a href="/assignment?class_name={{class_name}}&classID={{_id}}" class="class-name">{{class_name}}</a></br>
                         {{#if assignmentIDs}}
-                            <a href="assignment?class_name={{class_name}}&classID={{_id}}" class="assignments">{{assignmentIDs.length}} assignments</a>
+                            <a href="/assignment?class_name={{class_name}}&classID={{_id}}" class="assignments">{{assignmentIDs.length}} assignments</a>
                         {{else}}
-                            <a href="assignment?class_name={{class_name}}&classID={{_id}}" class="assignments">0 assignment</a>
+                            <a href="/assignment?class_name={{class_name}}&classID={{_id}}" class="assignments">0 assignment</a>
                         {{/if}}
                     </div>
                 </div>

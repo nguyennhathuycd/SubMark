@@ -61,6 +61,7 @@ router.post('/',
             req.session._id = user._id;
             req.session.name = user.name;
             if (req.body.role == "Teacher") {
+              req.session.role = "Teacher";
               var teacherData = {
                 email: req.body.email,
                 name: req.body.name,
@@ -75,6 +76,7 @@ router.post('/',
                 db.close();
               })
             } else if (req.body.role == "Student") {
+              req.session.role = "Student";
               var studentData = {
                 email: req.body.email,
                 name: req.body.name,

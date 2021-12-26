@@ -17,7 +17,7 @@ router.get('/',  (req, res) => {
       var classID = ObjectId(req.query.classID);
       dbo.collection("classes").findOne({_id: classID}, async (err, classes) => {
         if (err) throw err;
-        if (classes.assignmentIDs) {
+        if (classes) {
           for(var i = 0; i < classes.assignmentIDs.length; i++) {
             assignmentIDs[i] = classes.assignmentIDs[i].id;
           }
@@ -34,8 +34,10 @@ router.get('/',  (req, res) => {
             picture: req.user.picture
           }
         }
+        var classID = req.query.classID;
+        var class_name = req.query.class_name;
         if (req.session.role === "Student") {
-          res.render('studentAssignment', { assignments: assignments, classID: req.query.classID, class_name: req.query.class_name, role: "Student",style: "ListAssignment.css", user: sendUser });
+          res.render('studentAssignment', { assignments: assignments, classID: classID, class_name: class_name, role: "Student",style: "ListAssignment.css", user: sendUser });
         } else if (req.session.role === "Teacher") {
           res.render('ListAssignment', { assignments: assignments, classID: req.query.classID, class_name: req.query.class_name, role: "Teacher",style: "ListAssignment.css", user: sendUser });
         }

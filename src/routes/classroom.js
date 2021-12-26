@@ -116,8 +116,6 @@ router.post('/', function(req, res, next) {
         }
       })
     })
-    console.log(req.body.class_ID)
-    console.log(req.body.class_code)
   } else if (req.session.role === "Teacher"){
     var classData = {
       class_name: req.body.class_name,

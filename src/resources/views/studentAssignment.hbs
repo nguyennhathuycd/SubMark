@@ -2,14 +2,16 @@
     <div class="content-heading">
         <p>{{class_name}}</p>
     </div>
-
+    <p id="classes" data-id="{{classID}}" data-name="{{class_name}}"></p>
     {{#each assignments}}
         <div class="class-item js-open-class fl">
             <div class="img">
                 <img src="./assets/img/Exercise.png" alt="">
             </div>
             <div class="fl">
-                <a href="/submit" class="class-name">{{title}} </a>
+                
+                <a id="class_link" class="class-name" onclick="submit('{{_id}}','{{title}}')">{{title}} </a>
+                
                 <p class="assignments"><i class="fas fa-user"></i>Created by: {{teacherName}}</p>
                 <p class="assignments"><i class="fas fa-calendar-minus"></i> Open time: {{open_datetime}}</p>
                 <p class="due-time">Due time: {{due_datetime}}</p>
@@ -25,5 +27,14 @@
             window.location = window.location + '#loaded';
             window.location.reload();
         }
+    }
+    
+    function submit(_id, title) {
+        console.log("im here")
+        var classes = document.getElementById('classes');
+        var classID = classes.dataset.id;
+        var className = classes.dataset.name;
+        var linkURL = "/submit?class_name=" + className + "&classID=" + classID + "&a=" + _id + "&t=" + title;
+        window.location.href = linkURL;
     }
 </script>

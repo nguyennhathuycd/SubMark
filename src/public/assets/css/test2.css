@@ -240,25 +240,11 @@ width: 60px;
   .show {display:block;}
 
   .question{
-    margin-left: 10px;
+    margin-top: 10px;
     font-weight: 500;
     font-size: 17px;
+    margin-left: 10px;
 }
-.dropbtn {
-    position: relative;
-    color: rgb(245, 1, 1);
-    font-size: 22px;
-    cursor: pointer;
-    top: 0px;
-    left: 150px;
-    padding: 0px 10px 3px 10px;
-  }
-  
-  /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #e7e7e7;
-
-  }
   
 /* Customize the label (the container) */
 .container {
@@ -363,6 +349,10 @@ margin-top: 10px;
 width: 77%;
 }
 
+.text_add_question{
+    width: 68%;
+}
+
 .button_add{
 
 width: 70px;
@@ -372,15 +362,25 @@ color: #fafafa;
 height: 30px;
 }
 
-
-
-.total{
-    background-color: #414141;
-    justify-content:left;
-    padding: 10px;
-
+.btn-primary{
+    position: absolute;
+    right: 30px;
+    margin: 4px;
+    background-color: #ffffff;
+    color: blue;
+}
+.collapse{
+    border: solid 1px #17B89B;
 }
 
+.button_add_question{
+    background-color: #3284ff;
+    color: #ffffff;
+   font-size: 14px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 3px;
+}
 
 
 
@@ -431,20 +431,40 @@ height: 30px;
 }
 
 .savef__item-icon{
-    font-size: 1.3rem;
-    position:relative;
-    text-decoration: none;
-    color: #00A385;
-    transition: right linear 0.1s; 
-    background-color: #ffffff;
-    border: none;
-    padding: 3px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border: solid 2px #00A385;
-    }
+font-size: 1.3rem;
+position:relative;
+text-decoration: none;
+color: #00A385;
+transition: right linear 0.1s; 
+background-color: #ffffff;
+border: none;
+padding: 3px 10px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+border: solid 2px #00A385;
+}
 
 .category-item--active .savef__item-icon{
     color: #000000;
     }
+.name-question{
+   display: flex;
+   border: solid 3px #5373ff;
+   background-color: #3284ff;
+   color: #ffffff;
+   height: 50px;
+   align-items: center;
+  justify-content: space-between;
+}
+
+.card-body {
+padding: 0rem;
+}
+
+.new_question{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+

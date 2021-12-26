@@ -1,23 +1,21 @@
 <div id="content">
     <div class="content-heading">
-        <p class="img-content-text">Exercise 1</p>
-        <div class="img-assignment">
-            {{!-- <img src="../assets/img/Saitama.JPG" alt=""> --}}
-            <canvas id="myCanvas"></canvas>
-        </div>
-        <div class="submit-bar">
-            <div class="submit-bar__text">
-                <p>Submitted attachments</p>
+        <form action="/submit?a={{assignmentID}}" method="POST" enctype="multipart/form-data">
+            <p class="img-content-text">{{title}}</p>
+            <div class="img-assignment">
+                {{!-- <img src="../assets/img/Saitama.JPG" alt=""> --}}
+                {{!-- <p id="img" data-img="{{img}}"></p> --}}
+                <img id="img" src="/uploads/images/{{img}}" alt="">
+                <canvas id="myCanvas"></canvas>
             </div>
-            {{!-- <div class="attach">
-                <p class="attach__text">No attachments yet</p>
-                <p class="attach__text--existent">Homework1_tranvietsinh.png</p>
-                <p class="attach__text--existent">(24KB; Oct 1, 2021 1:30 pm)</p>
-                <div class="attach__icon"><i class="fas fa-times"></i></div>
-            </div> --}}
-            <input type="file" style="display: inline;"  onchange="readURL(this);" class="add-btn"></input>
-            <p class="submit-btn js-create-btn"><i class="fas fa-plus-circle"></i>Submit</p>
-        </div>
+            <div class="submit-bar">
+                <div class="submit-bar__text">
+                    <p>Submitted attachments</p>
+                </div>
+                <input type="file" name="image" id="image" style="display: inline;"  onchange="readURL(this);" class="add-btn"></input>
+                <button type="submit" class="submit-btn js-create-btn"><i class="fas fa-plus-circle"></i>Submit</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -29,6 +27,7 @@
             reader.addEventListener(
                 "load",
                 function() {
+                    document.getElementById("img").src = "";
                     var avatarImg = new Image();
                     var src = reader.result;
                     avatarImg.src = src;
@@ -39,12 +38,22 @@
                         ctx.canvas.width = 1320;
                         ctx.canvas.height = avatarImg.height;
                         
-                        ctx.drawImage(avatarImg, 400, 0);
+                        ctx.drawImage(avatarImg, 350, 0);
                     };
                 },
                 false
             );
             reader.readAsDataURL(input.files[0]);
         }
+    }
+
+
+    function submit(_id, title) {
+        console.log("im here")
+        var classes = document.getElementById('classes');
+        var classID = classes.dataset.id;
+        var className = classes.dataset.name;
+        var linkURL = "/submit?class_name=" + className + "&classID=" + classID + "&a=" + _id + "&t=" + title;
+        window.location.href = linkURL;
     }
 </script>
