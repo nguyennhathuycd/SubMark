@@ -293,29 +293,30 @@ function checkMark() {
   var sumPoints = 0;
   $boxes.each(function(k, val){
     var active = val.checked ? 1 : 0;
-    console.log("ative:" + active)
     if (active == 1) {
       sumPoints += Number(elements[k].value);
     }
   })
   var elem = document.getElementById("total_point");
+  elem.value = sumPoints;
   elem.innerText = sumPoints;
-  console.log(sumPoints)
 }
 
 function next_student() {
   var criterion_name = document.getElementsByClassName('container');
   var elements = document.getElementsByClassName('form-control');
-  var totalPoint = document.getElementsByClassName('total_point');
+  var totalPoint = document.getElementById('total_point');
   var studentName = document.getElementsByClassName('list-group-item-student');
   var questionName = document.getElementsByClassName('question');
   var currentPage = document.getElementById("currentPage").getAttribute('value')
   var maxPage = document.getElementById("maxPage").getAttribute('value')
+  var assignmentID = document.getElementById("assignmentID").getAttribute('value')
+  var test_id = document.getElementById("test_id").getAttribute('value')
   var $boxes = $('input[name=checkbox]');
 
   var body = {
     "studentName" : studentName[0].innerText,
-    "totalPoint" : totalPoint[0].innerText,
+    "totalPoint" : totalPoint.value,
   };
   for (var i = 0; i < questionName.length; i++) {
     var criteria = [];
@@ -330,6 +331,8 @@ function next_student() {
         }
       ];
   }
+  body.assignmentID = assignmentID;
+  body.test_id = test_id;
   
   fetch('/mark?page='+(currentPage), {
     method: 'POST',
@@ -339,25 +342,27 @@ function next_student() {
 
   var next_page = Number(currentPage) + 1;
   if (next_page >= maxPage) {
-    window.location = "http://localhost:3000/mark?page=0";
+    window.location = "http://localhost:3000/mark?a=" + assignmentID.toString() + "&page=0";
   } else {
-    window.location = "http://localhost:3000/mark?page=" + next_page;
+    window.location = "http://localhost:3000/mark?a=" + assignmentID.toString() + "&page=" + next_page ;
   }
 }
 
 function previous_student(){
   var criterion_name = document.getElementsByClassName('container');
   var elements = document.getElementsByClassName('form-control');
-  var totalPoint = document.getElementsByClassName('total_point');
+  var totalPoint = document.getElementById('total_point');
   var studentName = document.getElementsByClassName('list-group-item-student');
   var questionName = document.getElementsByClassName('question');
   var currentPage = document.getElementById("currentPage").getAttribute('value')
   var maxPage = document.getElementById("maxPage").getAttribute('value')
+  var assignmentID = document.getElementById("assignmentID").getAttribute('value')
+  var test_id = document.getElementById("test_id").getAttribute('value')
   var $boxes = $('input[name=checkbox]');
 
   var body = {
     "studentName" : studentName[0].innerText,
-    "totalPoint" : totalPoint[0].innerText,
+    "totalPoint" : totalPoint.value,
   };
   for (var i = 0; i < questionName.length; i++) {
     var criteria = [];
@@ -372,6 +377,8 @@ function previous_student(){
         }
       ];
   }
+  body.assignmentID = assignmentID;
+  body.test_id = test_id;
   
   fetch('/mark?page='+(currentPage), {
     method: 'POST',
@@ -382,10 +389,10 @@ function previous_student(){
   var previous_page = Number(currentPage) - 1;
   if (previous_page < 0) {
     var previous_page = Number(maxPage) - 1;
-    window.location = "http://localhost:3000/mark?page=" + previous_page;
+    window.location = "http://localhost:3000/mark?a=" + assignmentID.toString() + "&page=" + + previous_page;
   } else {
 
-    window.location = "http://localhost:3000/mark?page=" + previous_page;
+    window.location = "http://localhost:3000/mark?a=" + assignmentID.toString() + "&page=" + + previous_page;
   }
 }
 

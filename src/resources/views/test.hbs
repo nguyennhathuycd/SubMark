@@ -70,16 +70,30 @@
                     {{#if question}}
                         {{#each question}}
                             <div class="add-question">
-                                    <div class="name-question">{{questionName}}<div class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-sort-down"></i></div></div><div class="collapse" id="collapseExample"><div class="card card-body"><div class="new_criterion">
-                                    {{#each criteria}}
-                                        {{#if checkbox}}
-                                            <div class="testt"><label class="container">{{criterion_name}}<input type="checkbox" onclick="checkMark()" checked><span class ="checkmark"></span></label><input type="number" class="form-control" id="txt_x" value="{{score}}"></div>
-                                        {{else}}
-                                            <div class="testt"><label class="container">{{criterion_name}}<input type="checkbox" onclick="checkMark()"><span class ="checkmark"></span></label><input type="number" class="form-control" id="txt_x" value="{{score}}"></div>
-                                        {{/if}}
-                                    {{/each}}
-                                    </div></div></div> 
-                            </div>
+
+                                <div class="name-question">
+                                    {{questionName}}
+                                    <div class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        <i class="fas fa-sort-down"></i>
+                                    </div>
+                                </div>
+                                    
+                                            <div class="collapse" id="collapseExample">
+                                                <div class="card card-body">
+                                                    <div class="new_criterion">
+                                                        {{#each criteria}}
+                                                            {{#if checkbox}}
+                                                                <div id="criterion" class="testt"><label class="container" value= "{{criterion_name}}">{{criterion_name}}<input name="checkbox" class="checkbox" id="checkbox" type="checkbox" checked onclick="checkMark()"><span class ="checkmark"></span></label><input type="number" class="form-control" id="InputPoints" value="{{score}}"></div>
+                                                            {{else}}
+                                                                <div id="criterion" class="testt"><label class="container" value= "{{criterion_name}}">{{criterion_name}}<input name="checkbox" class="checkbox" id="checkbox" type="checkbox" onclick="checkMark()"><span class ="checkmark"></span></label><input type="number" class="form-control" id="InputPoints" value="{{score}}"></div>
+                                                            {{/if}}
+                                                        {{/each}}
+                                                        <input type="text" class="text_add" id="title" placeholder="New Criterion" value=""/> 
+                                                        <input type="button" class="button_add" id="button_add" onclick="add_element(' + title.toString() + ')" value="Add"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                 
                             <div>
                                 <div class="new_question">
                                     <div id="result"></div>    

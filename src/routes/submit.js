@@ -75,7 +75,6 @@ router.post('/', upload.single('image'), (request, response) => {
                         submissionID = submission.lastErrorObject.upserted;''
                     }
                     console.log("submissionID: " + submissionID)
-                    dbo.collection("mark").updateOne({studentId: studentID},{$set: {studentId:studentID, submissionId: submissionID,img: request.file.filename, nameST: request.session.name, question: []}}, {upsert: true})
                     var assignment = dbo.collection("assignments").findOne({_id: assignmentID})
                         .then (function (assignment) {
                             if (assignment) {
@@ -91,7 +90,12 @@ router.post('/', upload.single('image'), (request, response) => {
                                 }
                                 console.log("checkHasSubmit" + checkHasSubmit)
                                 if (checkHasSubmit !== true) {
-                                    dbo.collection("assignments").updateOne({_id: assignmentID}, {$push: {submitted : {"id": submissionID}},})
+                                    var assignment = dbo.collection("assignments").findOneAndUpdate({_id: assignmentID}, {$push: {submitted : {"id": submissionID}},})
+                                        .then (function (assignment) {
+                                            dbo.collection("mark").insertOne({studentId:studentID, assignmentID: assignment.value._id.toString(), submissionId: submissionID,img: request.file.filename, nameST: request.session.name, question: [], totalPoint: 0})
+                                        })
+                                } else {
+                                    dbo.collection("mark").updateOne({studentId: studentID},{$set: {studentId:studentID, submissionId: submissionID,img: request.file.filename, nameST: request.session.name, question: []}},)
                                 }
                             }
                         })

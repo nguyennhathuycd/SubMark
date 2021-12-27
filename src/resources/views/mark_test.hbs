@@ -74,6 +74,7 @@
             </div>
             {{#if tests}}
                 {{#each tests}}
+                    <p id="test_id" value="{{_id}}"></p>
                     <div class="list-group-item-student">
                         <button class="change-student__link">
                             <i class=" fas fa-chevron-left" onclick="previous_student()"></i></i>
@@ -170,6 +171,7 @@
             {{/if}}
             <p id="currentPage" value = "{{currentPage}}"></p>
             <p id="maxPage" value = "{{maxPage}}"></p>
+            <p id="assignmentID" value = "{{assignmentID}}"></p>
         </div>
     </div>
 <script src="/fabricJs_lib/jscolor.js"></script>

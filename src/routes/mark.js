@@ -39,7 +39,7 @@ router.get('/', function(req, res, next) {
               picture: req.user.picture
             }
           }
-          return res.render('test', {tests: tests, currentPage: page, pages: Math.ceil(countTests / perPage), maxPage: maxPage ,isMarkPage: true ,style: "test2.css", user: sendUser})
+          return res.render('mark_test', {tests: tests, assignmentID: req.query.a, currentPage: page, pages: Math.ceil(countTests / perPage), maxPage: maxPage ,isMarkPage: true ,style: "mark_test.css", user: sendUser})
         });
       })
   });
@@ -48,49 +48,47 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   var criterions = req.body;
   var currentPage = Number(req.query.page);
-  MongoClient.connect(url, async function(err, db) {
+  // let assignmentID = ObjectId(req.query.a)
+  MongoClient.connect(url, function(err, db) {
     if (err) {
       console.log(err)
     };
     var dbo = db.db("supmark");
     if (currentPage == 0) {
-      let firstDocument = await dbo.collection("test_mark").findOne();
-      
-      console.log(firstDocument.question)
-      if (!firstDocument.question) {
-        var totalPoint = criterions.totalPoint;
-        var question = criterions.question
-        await dbo.collection("test_mark").updateOne({}, {$set: {totalPoint, question}})
+      dbo.collection("mark").findOne({assignmentID: req.body.assignmentID})
+        .then( function(firstDocument) {
+          console.log(firstDocument.totalPoint)
+          if (firstDocument.totalPoint == 0) {
+            var question = criterions.question
+            var totalPoint = criterions.totalPoint;
+             dbo.collection("mark").updateOne({assignmentID: req.body.assignmentID}, {$set: {totalPoint, question}})
+              .then( function() {
+                var newCriterions = criterions;
+                for (var i = 0; i < newCriterions.question[0].criteria.length; i++) {
+                  newCriterions.question[0].criteria[i].checkbox = 0;
+                }
+                question = newCriterions.question;
+                
+                // Skip first document
+                let foundData =  dbo.collection("mark").find({assignmentID: req.body.assignmentID}).skip(1);
+                let IDs = [];
+                foundData.forEach(element => {
 
-        var newCriterions = criterions;
-        for (var i = 0; i < newCriterions.question[0].criteria.length; i++) {
-          newCriterions.question[0].criteria[i].checkbox = 0;
-        }
-        var question = newCriterions.question;
-        console.log(question)
-        console.log(question)
-        
-        // Skip first document
-        let foundData = await dbo.collection("test_mark").find().skip(1);
-        let IDs = [];
-        foundData.forEach(element => {
-          IDs.push(element._id)
+                  IDs.push(element._id)
+                })
+                 dbo.collection("mark").updateMany({_id: { $in: IDs}},{$set: {question}})
+              }) 
+          } else {
+            var question = criterions.question;
+             dbo.collection("mark").updateOne({assignmentID: req.body.assignmentID}, {$set: {"totalPoint": req.body.totalPoint,question}})
+          }
         })
-        await dbo.collection("test_mark").updateMany({_id: { $in: IDs}},{$set: {question}})
-      } else {
-        var question = criterions.question;
-        await dbo.collection("test_mark").updateOne({}, {$set: {question}})
-      }
     } else {
       var question = criterions.question;
-      let foundData = await dbo.collection("test_mark").find().skip(currentPage).limit(1);
-      let IDs = [];
-      foundData.forEach(element => {
-        IDs.push(element._id)
-      })
-      await dbo.collection("test_mark").updateOne({_id: { $in: IDs}}, {$set: {question, totalPoint: criterions.totalPoint},})
+      var id = ObjectId(req.body.test_id)
+      console.log(id)
+       dbo.collection("mark").updateOne({_id: id}, {$set: {question, totalPoint: req.body.totalPoint}})
     }
-    db.close();
   })
 })
 
