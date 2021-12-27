@@ -27,9 +27,9 @@ router.get('/', function (req, res, next) {
         var submit = dbo.collection("submissions").findOne({studentID: userID})
             .then( function(submit) {
                 if (submit) {
-                    res.render('submit', {assignments: true, img: submit.images ,title: req.query.t ,assignmentID: req.query.a ,class_name: req.query.class_name, classID : req.query.classID ,role: "Student", user: sendUser ,style: "submit.css"}) 
+                    res.render('submit', {assignments: true, teacherImg: req.query.i ,img: submit.images ,title: req.query.t ,assignmentID: req.query.a ,class_name: req.query.class_name, classID : req.query.classID ,role: "Student", user: sendUser ,style: "submit.css"}) 
                 } else {
-                    res.render('submit', {assignments: true, img: "false" ,title: req.query.t ,assignmentID: req.query.a ,class_name: req.query.class_name, classID : req.query.classID ,role: "Student", user: sendUser ,style: "submit.css"}) 
+                    res.render('submit', {assignments: true, teacherImg: req.query.i ,img: "false" ,title: req.query.t ,assignmentID: req.query.a ,class_name: req.query.class_name, classID : req.query.classID ,role: "Student", user: sendUser ,style: "submit.css"}) 
                 }
             })
     })

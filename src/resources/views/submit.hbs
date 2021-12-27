@@ -5,14 +5,14 @@
             <div class="img-assignment">
                 {{!-- <img src="../assets/img/Saitama.JPG" alt=""> --}}
                 {{!-- <p id="img" data-img="{{img}}"></p> --}}
-                <img id="img" src="/uploads/images/{{img}}" alt="">
+                <img id="img" src="/uploads/images/{{teacherImg}}" alt="">
                 <canvas id="myCanvas"></canvas>
             </div>
             <div class="submit-bar">
                 <div class="submit-bar__text">
                     <p>Submitted attachments</p>
                 </div>
-                <input type="file" name="image" id="image" style="display: inline;"  onchange="readURL(this);" class="add-btn"></input>
+                <input type="file" name="image" id="image" style="display: inline;" class="add-btn"></input>
                 <button type="submit" class="submit-btn js-create-btn"><i class="fas fa-plus-circle"></i>Submit</button>
             </div>
         </form>

@@ -6,8 +6,13 @@
     {{#each assignments}}
         <div class="class-item js-open-class fl">
             <div class="img">
-                <img src="./assets/img/Exercise.png" alt="">
+                {{#if img}}
+                    <img src="/uploads/images/{{img}}" alt="">
+                {{else}}
+                    <img src="./assets/img/Exercise.png" alt="">
+                {{/if}}
             </div>
+            <p id="images" value="{{img}}"></p>
             <div class="fl">
                 
                 <a id="class_link" class="class-name" onclick="submit('{{_id}}','{{title}}')">{{title}} </a>
@@ -30,11 +35,11 @@
     }
     
     function submit(_id, title) {
-        console.log("im here")
+        var img = document.getElementById("images").getAttribute('value')
         var classes = document.getElementById('classes');
         var classID = classes.dataset.id;
         var className = classes.dataset.name;
-        var linkURL = "/submit?class_name=" + className + "&classID=" + classID + "&a=" + _id + "&t=" + title;
+        var linkURL = "/submit?class_name=" + className + "&classID=" + classID + "&a=" + _id + "&t=" + title + "&i=" + img;
         window.location.href = linkURL;
     }
 </script>

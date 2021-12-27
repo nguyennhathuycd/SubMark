@@ -16,18 +16,18 @@ router.get('/', function(req, res, next) {
     var assignmentID = ObjectId(req.query.a);
     dbo.collection("assignments").findOne({_id: assignmentID})
       .then(function (assignment) {
+        console.log(assignment)
         for(var i = 0; i < assignment.submitted.length; i++) {
           submittedIDs[i] = assignment.submitted[i].id;
         }
         dbo.collection("mark").find({submissionId: {$in: submittedIDs}}).toArray((err, totalDocument) => {
           if (err) throw err;
-          countTests = totalDocument.length;
-          maxPage = totalDocument.length;
+          countTests = totalDocument.length / 2;
+          maxPage = totalDocument.length / 2;
         })
         var skipPage = perPage * page;
-        dbo.collection("mark").find({submissionId: {$in: submittedIDs}}).skip(skipPage).limit(perPage).toArray((err, tests) => {
+        dbo.collection("mark").find({submissionId: {$in: submittedIDs}}).limit(perPage).skip(skipPage).toArray((err, tests) => {
           if (err) throw err;
-          db.close();
           let sendUser
           if (req.session._id) {
             sendUser = {
