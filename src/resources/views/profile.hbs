@@ -1,69 +1,152 @@
+<style>
+    .text-input {
+        display: none;
+        border: 2px solid #00A385;
+        width: 100%;
+        height: 24px;
+        font-size: 16px;
+        padding: 10px;
+        outline: none;
+    }
+
+    .buttonedit {
+        display: flex;
+        margin-left: 0;
+    }
+
+    #edit {
+        display: inline-flex;
+        align-items: center;
+        background-color: #707174;
+        color: #fff;
+        padding: 8px 32px;
+        font-size: 23px;
+        cursor: pointer;
+        height: 44px;
+        outline: none;
+    }
+
+    #edit:hover {
+        opacity: 0.8;
+    }
+
+    #save {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 40px;
+        height: 44px;
+        padding: 8px 32px;
+        font-size: 23px;
+        background-color: #17B89B;
+        color: #fff;
+        cursor: pointer;
+        outline: none;
+    }
+
+    #save:hover {
+        opacity: 0.8;
+    }
+
+    #form-submit {
+        display: flex;
+        justify-content: center;
+    }
+</style>
 <div class="grid__column-10">
     <div class="info">
-    <div class="title"><h1>Teacher Information</h1></div>
-    <div class="main-agileits">
-    <div class="right-wthree">
-        {{#if user.picture}}
-            <img src="{{user.picture}}" alt="image" />
-        {{else}}
-            <img src="https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png" alt="image" />
-        {{/if}}
-            <h3>{{user.name}}</h3>
+        <div class="title">
+            <h1>Details Information</h1>
         </div>
-        <div class="left-w3ls">
-        <ul class="address">
-            <li>
-                <ul class="address-text">
-                    <li><b>EMAIL: </b></li>
-                    <li><a href="mailto:{{user.email}}">{{user.email}}</a></li>
-                </ul>
-            </li>
-            <li>
-                <ul class="address-text">
-                    <li><b>NAME: </b></li>
-                    <li><a href="mailto:{{user.name}}">{{user.name}}</a></li>
-                </ul>
-            </li>
-            <li>
-                <ul class="address-text">
-                    <li><b>PHONE: </b></li>
-                    <li>{{user.phone}}</li>
-                </ul>
-            </li>
-            <li>
-                <ul class="address-text">
-                    <li><b>ROLE: </b></li>
-                    <li>{{user.role}}</li>
-                </ul>
-            </li>
-            <li>
-                <ul class="address-text">
-                    <li><b>ADDRESS: </b></li>
-                    <li>{{user.address}}</li>
-                </ul>
-            </li>
-            <li>
-                <ul class="address-text">
-                    <li><b>BIRTHDAY:</b></li>
-                    <li>{{user.birthday}}</li>
-                </ul>
-            </li>
-        </ul>
-            <div class="buttonedit">
-                <a href="">Edit</a>
+        <form method="post" action="/profile" id="form-submit" enctype="multipart/form-data">
+            <div class="main-agileits">
+                <div class="right-wthree">
+                    {{#if user.picture}}
+                    <img src="{{user.picture}}" alt="image" />
+                    {{else}}
+                    <img src="https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png"
+                        alt="image" />
+                    <input type="file" name="avatar">
+                    {{/if}}
+                    <h3>{{user.name}}</h3>
+                </div>
+                <div class="left-w3ls">
+                    <ul class="address">
+                        <li>
+                            <ul class="address-text">
+                                <li><b>EMAIL: </b></li>
+                                <li class="label-display"><a href="mailto:{{user.email}}">{{user.email}}</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="address-text">
+                                <li><b>NAME: </b></li>
+                                <li class="label-display">{{user.name}}</a></li>
+                                <li><input name="name" id="name" class="text-input" value={{user.name}}></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="address-text">
+                                <li><b>PHONE: </b></li>
+                                <li class="label-display">{{user.phone}}</li>
+                                <li><input name="phone" id="phone" class="text-input" value={{user.phone}}></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="address-text">
+                                <li><b>ROLE: </b></li>
+                                <li class="label-display">{{user.role}}</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="address-text">
+                                <li><b>ADDRESS: </b></li>
+                                <li class="label-display">{{user.address}}</li>
+                                <li><input name="address" id="address" class="text-input" value={{user.address}}></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="address-text">
+                                <li><b>BIRTHDAY:</b></li>
+                                <li class="label-display">{{user.birthday}}</li>
+                                <li><input name="birthday" id="birthday" class="text-input" value={{user.birthday}}>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="buttonedit">
+                        {{!-- <a href="">Edit</a> --}}
+                        <button type="button" id="edit">Edit</button>
+                        <button type="submit" id="save">Save</button>
+                    </div>
+                </div>
+                <div class="clear"></div>
             </div>
-        </div>          
-        <div class="clear"></div>
+        </form>
     </div>
 </div>
-</div>
+<script>
+    var input = document.getElementsByClassName('text-input');
+    var label = document.getElementsByClassName('label-display');
+    edit.onclick = () => {
+        for (var i = 0; i < input.length; i++) {
+
+            input[i].disabled = false;
+            label[i].style.cssText = `display: none !important`;
+            input[i].style.cssText = `display: inline-block !important`;
+
+        }
+    }
+    var formSubmit = document.getElementById('form-submit');
+</script>
 {{!-- <div id="content">
     <div class="fl">
         <a href="classroom" class="class-name">Return classroom</a>
     </div>
     <div class="content-heading">
         <p>Mail: {{user.email}}</p>
-        <p>Phone: {{user.phone}}</p> 
+        <p>Phone: {{user.phone}}</p>
         <p>Role: {{user.role}}</p>
     </div>
     <br>
